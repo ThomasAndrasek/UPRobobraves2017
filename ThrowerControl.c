@@ -1,11 +1,8 @@
-
 int throwerSpeed = 0;
 
 task throwerControl()
 {
-
 	// variables for hold control
-
 	bool isHolding = false;
 	int prevArmPosition = 0;
 	int curArmPosition = 0;
@@ -13,7 +10,6 @@ task throwerControl()
 
 	while(true)
 	{
-
 		// If we want to move the thrower, use the desired speed
 		if (throwerSpeed != 0){
 			motor[leftThrow] = throwerSpeed;
@@ -49,8 +45,6 @@ task throwerControl()
 			motor[rightThrowThree] = holdPower;
 			motor[leftThrowThree] = holdPower;
 		}
-
 		delay(10);
 	}
-
 }

@@ -1,5 +1,5 @@
-char *options[7];
-const int optionCount = 7;
+char *options[1];
+const int optionCount = 1;
 
 const int leftButton = 1;
 const int centerButton = 2;
@@ -8,12 +8,6 @@ const int rightButton = 4;
 
 void setOptions(){
 		options[0] = "Wall Sweep";
-		options[1] = "Simple Throw";
-		options[2] = "Quick Block";
-		options[3] = "Short Sweep";
-		options[4] = "Long Block";
-		options[5] = "Double Throw";
-		options[6] = "Skills Challenge";
 }
 
 int getAutoOption()
