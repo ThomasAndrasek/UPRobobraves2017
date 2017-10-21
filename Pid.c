@@ -18,7 +18,7 @@ void lineFollow(bool firstLoop) {
 	rightDriveSpeed = lineDeltaPower;
 }
 
-// =(
+// reeeeeeeeeeeeeeeeeeee
 // =(
 
 bool findLine(int oRightDriveSpeed, int mLoopCounter){
@@ -93,25 +93,44 @@ void driveForward(int distanceCM, int targetSpeed, bool brake, int lineFollower)
 
 }
 
-void armPosition(int mArmPosition, int mThrowerSpeed, int timeOut) {
+/*void armPosition(int mArmPosition, int mThrowerSpeed, int timeOut) {
 	clearTimer(T1);
+	if((SensorValue[dgtl2] != 1) && (SensorValue[dgtl3] != 1)) {
+		if(mArmPosition > SensorValue[ThrowerEncoder]) {
+			while((mArmPosition > SensorValue[ThrowerEncoder]) && (timeOut > time1[T1])) {
 
-	if(mArmPosition > SensorValue[ThrowerEncoder]) {
-		while((mArmPosition > SensorValue[ThrowerEncoder]) && (timeOut > time1[T1])) {
+			throwerSpeed = mThrowerSpeed;
 
-		throwerSpeed = mThrowerSpeed;
+			delay(2);
+			}
+		}
+		else {
+			while((mArmPosition < SensorValue[ThrowerEncoder]) && (timeOut > time1[T1])) {
+				throwerSpeed = mThrowerSpeed * -1;
 
-		delay(2);
+				delay(2);
+			}
 		}
 	}
-	else {
-		while((mArmPosition < SensorValue[ThrowerEncoder]) && (timeOut > time1[T1])) {
-			throwerSpeed = mThrowerSpeed * -1;
+	throwerSpeed = 0;
+}*/
+
+void mobileGoalLift(int position) {
+	if(position == 1) {
+		while(SensorValue[dgtl2] != 1)
+		{
+			throwerSpeed = 127;
 
 			delay(2);
 		}
 	}
-	throwerSpeed = 0;
+	else {
+		while(SensorValue[dgtl3] != 1) {
+			throwerSpeed = -127;
+
+			delay(2);
+		}
+	}
 }
 
 void spin(int degrees, int spinPower, bool brake) {
@@ -177,4 +196,15 @@ void setHeading(int desiredHeading, int spinPower, bool brake) {
 
 	leftDriveSpeed = 0;
 	rightDriveSpeed = 0;
+}
+
+task mobileGoalScore() {
+	driveForward(300, 80, true, 0);
+	mobileGoalLift(0);
+	driveForward(10, 20, true, 0);
+	mobileGoalLift(1);
+	driveForward(-50, 40, true, 0);
+	spin(180, 40, true);
+	driveForward(300, 60, true, 0);
+	mobileGoalLift(0);
 }

@@ -1,5 +1,6 @@
 int rightDriveSpeed = 0;
 int leftDriveSpeed = 0;
+int throwerSpeed = 0;
 
 int outerCurrentLineError = 0;
 int innerCurrentLineError = 0;

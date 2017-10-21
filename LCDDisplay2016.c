@@ -7,7 +7,7 @@ const int rightButton = 4;
 
 
 void setOptions(){
-		options[0] = "Wall Sweep";
+		options[0] = "Mobile Goal Score";
 }
 
 int getAutoOption()
