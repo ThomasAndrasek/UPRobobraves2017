@@ -119,14 +119,14 @@ void mobileGoalLift(int position) {
 	if(position == 1) {
 		while(SensorValue[dgtl2] != 1)
 		{
-			throwerSpeed = 127;
+			mobileArmSpeed = 127;
 
 			delay(2);
 		}
 	}
 	else {
 		while(SensorValue[dgtl3] != 1) {
-			throwerSpeed = -127;
+			mobileArmSpeed = -127;
 
 			delay(2);
 		}

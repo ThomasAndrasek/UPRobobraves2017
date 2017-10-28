@@ -29,23 +29,23 @@ task controllerPolling(){
 
 		if((vexRT[Ch3Xmtr2] > 20) || (vexRT[Ch3Xmtr2] < - 20)) {
 			if((SensorValue[dgtl2] != 1) && (SensorValue[dgtl3] != 1)) {
-				throwerSpeed = vexRT[Ch3Xmtr2];
+				mobileArmSpeed = vexRT[Ch3Xmtr2];
 			}
 		}
 		else if((vexRT[Ch2Xmtr2] > 20) || (vexRT[Ch2Xmtr2] < - 20)) {
 			if(vexRT[Ch2Xmtr2] > 0){
 				if((SensorValue[dgtl2] != 1) && (SensorValue[dgtl3] != 1)) {
-					throwerSpeed = 40 + vexRT[Ch2Xmtr2] / 2;
+					mobileArmSpeed = 40 + vexRT[Ch2Xmtr2] / 2;
 				}
 			}
 			else {
 				if((SensorValue[dgtl2] != 1) && (SensorValue[dgtl3] != 1)) {
-					throwerSpeed = vexRT[Ch2Xmtr2] / 4;
+					mobileArmSpeed = vexRT[Ch2Xmtr2] / 4;
 				}
 			}
 		}
 		else {
-			throwerSpeed = 0;
+			mobileArmSpeed = 0;
 		}
 
 		if(vexRT[Btn8L] == 1){
@@ -58,24 +58,34 @@ task controllerPolling(){
 
 		if(vexRT[Btn8U] == 1){
 			if((SensorValue[dgtl2] != 0) && (SensorValue[dgtl3] != 0)) {
-				throwerSpeed = 127;
+				mobileArmSpeed = 127;
 			}
 		}
 		else if(vexRT[Btn8R]){
 			if((SensorValue[dgtl2] != 0) && (SensorValue[dgtl3] != 0)) {
-				throwerSpeed = -127;
+				mobileArmSpeed = -127;
 			}
 		}
 
-		if(vexRT[Btn8UXmtr2] == 1){
+		if(vexRT[Btn8UXmtr2]){
 			if((SensorValue[dgtl2] != 0) && (SensorValue[dgtl3] != 0)) {
-				throwerSpeed = 127;
+				mobileArmSpeed = 127;
 			}
 		}
 		else if(vexRT[Btn8RXmtr2]){
 			if((SensorValue[dgtl2] != 0) && (SensorValue[dgtl3] != 0)) {
-				throwerSpeed = -127;
+				mobileArmSpeed = -127;
 			}
+		}
+
+		if(vexRT[Btn6U]) {
+			clawSpeed = 127;
+		}
+		else if(vexRT[Btn5U]) {
+			clawSpeed = -127;
+		}
+		else {
+			clawSpeed = 127;
 		}
 
 		delay(5);
@@ -87,7 +97,8 @@ task driving(){
 	{
 		motor[rightDrive]   = rightDriveSpeed;
 		motor[leftDrive]    = leftDriveSpeed;
-		motor[rightThrow]   = throwerSpeed;
+		motor[mobileArm]    = mobileArmSpeed;
+		motor[clawGrabber]  = clawSpeed;
 	}
 		delay(5);
 }
