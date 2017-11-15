@@ -133,6 +133,26 @@ void mobileGoalLift(int position) {
 	}
 }
 
+task turnTableForward
+{
+	while ( SensorValue[turnTableReader] < 990 )
+	{
+		turnTableSpeed = 127;
+		delay(5);
+	}
+
+	turnTableSpeed = 0;
+}
+
+task turnTableBackward
+{
+	while ( SensorValue[turnTableReader] > 0 )
+	{
+		turnTableSpeed = -127;
+		delay(5);
+	}
+}
+
 void spin(int degrees, int spinPower, bool brake) {
 	SensorValue[LeftDriver] = 0;
 	SensorValue[RightDriver] = 0;

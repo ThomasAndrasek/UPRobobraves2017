@@ -67,6 +67,15 @@ task controllerPolling(){
 			}
 		}
 
+		if ( vexRT[Btn8L] == 1 )
+		{
+			startTask(turnTableForward);
+		}
+		else if ( vexRT[Btn8D] == 1 )
+		{
+			startTask(turnTableBackward);
+		}
+
 		if(vexRT[Btn8UXmtr2]){
 			if((SensorValue[dgtl2] != 0) && (SensorValue[dgtl3] != 0)) {
 				mobileArmSpeed = 127;
@@ -95,10 +104,11 @@ task controllerPolling(){
 task driving(){
 	while(true)
 	{
-		motor[rightDrive]   = rightDriveSpeed;
-		motor[leftDrive]    = leftDriveSpeed;
-		motor[mobileArm]    = mobileArmSpeed;
-		motor[clawGrabber]  = clawSpeed;
+		motor[rightDrive]       = rightDriveSpeed;
+		motor[leftDrive]        = leftDriveSpeed;
+		motor[mobileArm]        = mobileArmSpeed;
+		motor[clawGrabber]      = clawSpeed;
+		motor[turnTableSpinner] = turnTableSpeed;
 	}
 		delay(5);
 }
