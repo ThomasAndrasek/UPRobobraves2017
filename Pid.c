@@ -24,8 +24,8 @@ void lineFollow(bool firstLoop) {
 bool findLine(int oRightDriveSpeed, int mLoopCounter){
 	bool foundLine = false;
 
-	SensorValue[LeftDriver] = 0;
-	SensorValue[RightDriver] = 0;
+	SensorValue[LeftDriveEncoder] = 0;
+	SensorValue[RightDriveEncoder] = 0;
 
 	int loopCounter = 0;
 
@@ -55,8 +55,8 @@ bool findLine(int oRightDriveSpeed, int mLoopCounter){
 // =(
 
 void driveForward(int distanceCM, int targetSpeed, bool brake, int lineFollower){
-	SensorValue[LeftDriver] = 0;
-	SensorValue[RightDriver] = 0;
+	SensorValue[LeftDriveEncoder] = 0;
+	SensorValue[RightDriveEncoder] = 0;
 
 	leftDriveSpeed = 25 * sgn(distanceCM);
 	rightDriveSpeed = 25 * sgn(distanceCM);
@@ -71,7 +71,7 @@ void driveForward(int distanceCM, int targetSpeed, bool brake, int lineFollower)
 	bool firstLoop = true;
 
 	// Wait until distance is traveled
-	while(abs(SensorValue[LeftDriver]) < abs(targetClicks)){
+	while(abs(SensorValue[LeftDriveEncoder]) < abs(targetClicks)){
 		if(lineFollower == 1){
 			lineFollow(true);
 			firstLoop = false;
@@ -115,51 +115,33 @@ void driveForward(int distanceCM, int targetSpeed, bool brake, int lineFollower)
 	throwerSpeed = 0;
 }*/
 
-void mobileGoalLift(int position) {
+task mobileGoalLift() {
 	if(position == 1) {
 		while(SensorValue[dgtl2] != 1)
 		{
-			mobileArmSpeed = 127;
+			lifterSpeed = 127;
 
 			delay(2);
 		}
 	}
 	else {
 		while(SensorValue[dgtl3] != 1) {
-			mobileArmSpeed = -127;
+			lifterSpeed = -127;
 
 			delay(2);
 		}
 	}
-}
 
-task turnTableForward
-{
-	while ( SensorValue[turnTableReader] < 990 )
-	{
-		turnTableSpeed = 127;
-		delay(5);
-	}
-
-	turnTableSpeed = 0;
-}
-
-task turnTableBackward
-{
-	while ( SensorValue[turnTableReader] > 0 )
-	{
-		turnTableSpeed = -127;
-		delay(5);
-	}
+	lifterSpeed = 0;
 }
 
 void spin(int degrees, int spinPower, bool brake) {
-	SensorValue[LeftDriver] = 0;
-	SensorValue[RightDriver] = 0;
+	SensorValue[LeftDriveEncoder] = 0;
+	SensorValue[RightDriveEncoder] = 0;
 
 	long spinTargetClicks = degrees * 2.35;
 
-	while(abs(spinTargetClicks) > abs(SensorValue[LeftDriver])){
+	while(abs(spinTargetClicks) > abs(SensorValue[LeftDriveEncoder])){
 		leftDriveSpeed = spinPower * sgn(degrees);
 		rightDriveSpeed = -1 * spinPower * sgn(degrees);
 
@@ -179,8 +161,8 @@ void spin(int degrees, int spinPower, bool brake) {
 void setHeading(int desiredHeading, int spinPower, bool brake) {
 	bool turnRight = true;
 
-	SensorValue[LeftDriver] = 0;
-	SensorValue[RightDriver] = 0;
+	SensorValue[LeftDriveEncoder] = 0;
+	SensorValue[RightDriveEncoder] = 0;
 
 	int deltaRotation = desiredHeading - SensorValue[in1];
 
@@ -216,15 +198,4 @@ void setHeading(int desiredHeading, int spinPower, bool brake) {
 
 	leftDriveSpeed = 0;
 	rightDriveSpeed = 0;
-}
-
-task mobileGoalScore() {
-	driveForward(300, 80, true, 0);
-	mobileGoalLift(0);
-	driveForward(10, 20, true, 0);
-	mobileGoalLift(1);
-	driveForward(-50, 40, true, 0);
-	spin(180, 40, true);
-	driveForward(300, 60, true, 0);
-	mobileGoalLift(0);
 }

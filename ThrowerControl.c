@@ -1,6 +1,4 @@
-int throwerSpeed = 0;
-
-task throwerControl()
+task armHolder()
 {
 	// variables for hold control
 	bool isHolding = false;
@@ -12,10 +10,8 @@ task throwerControl()
 	{
 		// If we want to move the thrower, use the desired speed
 		if (throwerSpeed != 0){
-			motor[leftThrow] = throwerSpeed;
-			motor[rightThrow] = throwerSpeed;
-			motor[rightThrowThree] = throwerSpeed;
-			motor[leftThrowThree] = throwerSpeed;
+			motor[armLeft] = armLeftSpeed;
+			motor[armRight] = armRightSpeed;
 			isHolding = false;
 		}
 		// Else, hold
@@ -24,11 +20,11 @@ task throwerControl()
 			if (isHolding == false){
 				isHolding = true;
 				holdPower=0;
-				curArmPosition = SensorValue[ThrowerEncoder];
+				curArmPosition = SensorValue[ArmEncoderRight];
 			}
 			else{  //After the first time, do hold logic
 				prevArmPosition = curArmPosition;
-				curArmPosition = SensorValue[ThrowerEncoder];
+				curArmPosition = SensorValue[ArmEncoderRight];
 
 				// OK need to test values here to see
 				// Assuming higher values on sensor means arm is up, lower means down
@@ -40,10 +36,8 @@ task throwerControl()
 				}
 			}
 			// now apply the hold pwer
-			motor[leftThrow] = holdPower;
-			motor[rightThrow] = holdPower;
-			motor[rightThrowThree] = holdPower;
-			motor[leftThrowThree] = holdPower;
+			motor[armLeft] = holdPower;
+			motor[armRight] = holdPower;
 		}
 		delay(10);
 	}
