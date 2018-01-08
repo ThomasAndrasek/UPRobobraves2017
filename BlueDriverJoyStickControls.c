@@ -53,32 +53,32 @@ task controllerPolling(){
 		if( vexRT[Btn8UXmtr2] == 1 )
 		{
 			armPosition = 0;
-			elbowPosition = -180;
+			elbowPosition = 180;
 		}
 
 		if ( vexRT[Btn8RXmtr2] == 1 )
 		{
 			armPosition = 340;
-			elbowPosition = -70;
+			elbowPosition = 70;
 		}
 
 		if ( vexRT[Btn8DXmtr2] == 1 )
 		{
 			armPosition = 340;
-			elbowPosition = -30;
+			elbowPosition = 30;
 		}
 
 		if( vexRT[Btn8LXmtr2] == 1 )
 		{
 			armPosition = 10;
-			elbowPosition = -30;
+			elbowPosition = 30;
 		}
 
 		if ( vexRT[Btn7UXmtr2] == 1 )
 		{
 			elbowPosition = -190;
 			coneIntakeSpeed = 80;
-			elbowPosition = -170;
+			elbowPosition = 170;
 		}
 
 		if(vexRT[Btn6U]) {
